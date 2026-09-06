@@ -111,9 +111,14 @@ LP.compose = function (rawText, opts) {
   if (signals.info && cards.length > 0) cards.push(LP.buildInfoCard(text));
 
   // --- Tier 2 / Tier 3 fallback ---
+  // Only reaches here if NO signal card was built above.
+  // The looksActionShaped guard is intentionally narrow — it must NOT steal
+  // inputs like "I need an Uber to the airport" (signals.cab fires above).
   if (cards.length === 0) {
+    const wordCount = text.trim().split(/\s+/).length;
     const looksActionShaped = /\b(need to|have to|should|must|want to|gonna|going to|plan to)\b/i.test(text);
-    if (looksActionShaped || text.split(' ').length <= 6) {
+    // Only clarify if VERY short (≤4 words) or action-shaped with no entities extracted
+    if (wordCount <= 4 || (looksActionShaped && wordCount <= 6)) {
       return { tier: 2, primaryIntent: 'CLARIFY', cards: [], tree: null, text, tone };
     }
     const card = LP.buildOpenEndedCard(text);
