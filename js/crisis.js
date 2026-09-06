@@ -66,7 +66,7 @@ const RIGHTS_DISCLAIMER = 'This is general information, not legal advice — NAL
 LP.crisisCategories = [
   {
     id: 'womens_safety', label: "Women's Safety", severity: 'critical', assistanceType: 'crisis',
-    phrases: ['being followed', 'following me', 'a stalker', 'stalker', 'stalking', 'someone is stalking me', 'being harassed', 'catcalled', 'a man is following me', 'grabbed me', 'being chased', 'eve teasing', 'groped', 'touched inappropriately', 'unsafe at night'],
+    phrases: ['being followed', 'following me', 'a stalker', 'stalker', 'stalking', 'stalked', 'being stalked', 'someone is stalking me', 'being harassed', 'catcalled', 'a man is following me', 'grabbed me', 'being chased', 'eve teasing', 'groped', 'touched inappropriately', 'unsafe at night', 'not safe', 'i am not safe'],
     helplines: [LP.helplines.womenHelpline, LP.helplines.allEmergency],
     safetyTips: ['Head toward the nearest place with other people — a shop, a lit building, a crowd.', 'Walk briskly, do not run, and stay visible.', 'If you can, call a trusted contact and stay on the line.']
   },
@@ -78,27 +78,27 @@ LP.crisisCategories = [
   },
   {
     id: 'domestic_abuse', label: 'Domestic Abuse (all genders)', severity: 'critical', assistanceType: 'crisis', sensitive: true,
-    phrases: ['my husband is hitting me', 'husband beats me', 'husband hitting me', 'my wife is hitting me', 'wife beats me', 'wife hitting me', 'my partner is hitting me', 'being abused at home', 'my partner hit me', 'domestic violence', 'domestic abuse', 'he is going to hurt me', 'she is going to hurt me', 'abusive relationship', 'beaten at home', 'husband is violent', 'wife is violent'],
+    phrases: ['my husband is hitting me', 'husband beats me', 'husband hitting me', 'husband is beating me', 'beating me', 'my wife is hitting me', 'wife beats me', 'wife hitting me', 'wife is beating me', 'my partner is hitting me', 'being abused at home', 'my partner hit me', 'domestic violence', 'domestic abuse', 'he is going to hurt me', 'she is going to hurt me', 'abusive relationship', 'beaten at home', 'husband is violent', 'wife is violent'],
     helplines: [LP.helplines.womenAllIssues, LP.helplines.allEmergency],
     safetyTips: ['If you can safely leave the room or the house, do that first.', 'A neighbor, stairwell, or locked room can buy you time.', 'The helpline can also connect you with local shelters — regardless of your gender.'],
     rightsNote: 'Domestic abuse is a legal wrong in India regardless of the survivor\u2019s gender, and protection orders can be sought through the courts. ' + RIGHTS_DISCLAIMER
   },
   {
     id: 'financial_crisis', label: 'Financial Crisis', severity: 'medium', assistanceType: 'support',
-    phrases: ['drowning in debt', 'about to lose my house', 'cannot pay my loan', "can't pay my loan", 'financial crisis', 'loan sharks are threatening me', 'daughter\'s wedding', 'wedding expenses', 'can\'t afford wedding', 'wedding without loan', 'collect money for wedding', 'no money for wedding'],
+    phrases: ['drowning in debt', 'about to lose my house', 'cannot pay my loan', "can't pay my loan", 'financial crisis', 'loan sharks are threatening me', 'daughter\'s wedding', 'wedding expenses', 'can\'t afford wedding', 'wedding without loan', 'collect money for wedding', 'no money for wedding', 'farmer and i am in debt', 'farmer in debt'],
     helplines: [LP.helplines.legalAid, LP.helplines.supportLine],
     safetyTips: ['If a lender is threatening or harassing you, that is illegal — document every message and call.', 'Banking ombudsman and consumer courts exist specifically for loan disputes.', 'A free financial/legal counselor can help you prioritize which debts to address first.']
   },
   {
     id: 'mental_health', label: 'Mental Health Guidance', severity: 'high', assistanceType: 'crisis', sensitive: true,
-    phrases: ['having a panic attack', 'panic attack right now', 'having a breakdown', "i can't cope", 'mental breakdown', 'want to kill myself', 'i want to die', 'thinking about suicide', 'suicidal', 'ending my life', 'self harm', 'cutting myself', 'feeling hopeless'],
+    phrases: ['having a panic attack', 'panic attack right now', 'having a breakdown', "i can't cope", 'mental breakdown', 'want to kill myself', 'i want to die', 'thinking about suicide', 'suicidal', 'ending my life', 'end my life', 'end it all', 'self harm', 'cutting myself', 'feeling hopeless'],
     helplines: [LP.helplines.mentalHealth],
     safetyTips: ['Try to slow your breathing — I can guide you through a short breathing exercise if you\u2019d like.', 'Name 5 things you can see, 4 you can hear, 3 you can touch — it helps ground the moment.', 'Trained counselors on the helpline are free, confidential, and available 24/7.'],
     offerBreathing: true
   },
   {
     id: 'elder_welfare', label: 'Elder Welfare', severity: 'high', assistanceType: 'crisis', sensitive: true,
-    phrases: ['my grandmother is being abused', 'elder abuse', 'my grandfather is being neglected', 'caretaker is hurting', 'elderly parent needs help', 'abandoned parents', 'thrown out of house old', 'property grabbed by children'],
+    phrases: ['my grandmother is being abused', 'elder abuse', 'elderly parent is being abused', 'abused elderly', 'my grandfather is being neglected', 'caretaker is hurting', 'elderly parent needs help', 'abandoned parents', 'thrown out of house old', 'property grabbed by children'],
     helplines: [LP.helplines.elderHelpline, LP.helplines.police],
     safetyTips: ['If they are in immediate danger, prioritize getting them away from the person first.', 'Elder Line can arrange a welfare check and connect you to local services.', 'Document what you have observed once things are safe.']
   },
@@ -117,7 +117,7 @@ LP.crisisCategories = [
   },
   {
     id: 'cybercrime_sextortion', label: 'Cybercrime / Sextortion', severity: 'high', assistanceType: 'crisis', sensitive: true,
-    phrases: ['someone is blackmailing me with photos', 'blackmailing', 'sextortion', 'revenge porn', 'leaked my photos', 'shared my private photos', 'threatening to leak my photos', 'my bank account was hacked', 'hacked my bank account', 'money was stolen from my account', 'gave my otp to a scammer', 'my account was hacked', 'someone is threatening to share my pictures', 'loan app harassment'],
+    phrases: ['someone is blackmailing me with photos', 'blackmailing', 'sextortion', 'revenge porn', 'leaked my photos', 'shared my private photos', 'threatening to leak my photos', 'my bank account was hacked', 'hacked my bank account', 'money was stolen from my account', 'gave my otp to a scammer', 'my account was hacked', 'someone is threatening to share my pictures', 'loan app harassment', 'cheated online', 'i was cheated online', 'cyber fraud', 'lost money in cyber fraud', 'online fraud'],
     helplines: [LP.helplines.cyberCrime],
     safetyTips: ['Do not pay or send more images — it rarely stops the demands.', 'Screenshot everything before blocking the person.', 'Report at cybercrime.gov.in or call 1930 — platforms can also fast-track takedowns once reported.']
   },
@@ -142,7 +142,7 @@ LP.crisisCategories = [
   },
   {
     id: 'disaster_relief', label: 'Disaster Relief', severity: 'critical', assistanceType: 'crisis',
-    phrases: ['earthquake', 'building collapsed', 'flood water rising', 'trapped under debris', 'landslide', 'cyclone hit our village', 'car accident', 'road accident', 'injured on road'],
+    phrases: ['earthquake', 'building collapsed', 'flood water rising', 'trapped under debris', 'landslide', 'cyclone hit our village', 'car accident', 'road accident', 'injured on road', 'snake bite', 'snakebite'],
     helplines: [LP.helplines.disasterMgmt, LP.helplines.allEmergency],
     safetyTips: ['If a structure feels unstable, move to open ground away from walls and windows.', 'Do not use elevators or open flames if you smell gas.', 'Conserve your phone battery — send your location once, then stay quiet.']
   },
@@ -161,7 +161,7 @@ LP.crisisCategories = [
   },
   {
     id: 'workplace_posh', label: 'Workplace POSH (Harassment)', severity: 'medium', assistanceType: 'crisis', sensitive: true,
-    phrases: ['being harassed at work', 'my boss is inappropriate', 'workplace harassment', 'sexually harassed at office', 'posh complaint', 'inappropriate touching at work'],
+    phrases: ['being harassed at work', 'my boss is inappropriate', 'workplace harassment', 'sexually harassed at office', 'posh complaint', 'inappropriate touching at work', 'harassed at workplace', 'harassment at workplace'],
     helplines: [LP.helplines.womenHelpline, LP.helplines.legalAid],
     safetyTips: ["Write down what happened with dates while it's fresh — this matters later.", 'Every workplace above a certain size is legally required to have an Internal Committee (ICC) for exactly this.', 'You can also approach the police or the women\u2019s helpline if you feel unsafe.'],
     rightsNote: 'Workplace sexual harassment complaints in India are governed by the POSH Act, with the ICC required to complete an inquiry within a set timeframe. ' + RIGHTS_DISCLAIMER
@@ -174,7 +174,7 @@ LP.crisisCategories = [
   },
   {
     id: 'dowry_harassment', label: 'Dowry Harassment', severity: 'high', assistanceType: 'crisis', sensitive: true,
-    phrases: ['dowry', 'dowry demand', 'dowry demands', 'in-laws demanding dowry', 'in-laws demanding money', 'dowry torture', 'threatened over dowry', 'being harassed for dowry', 'husband demanding money', 'dowry harassment', 'demanding dowry', 'in laws demanding money'],
+    phrases: ['dowry', 'dowry demand', 'dowry demands', 'in-laws demanding dowry', 'in-laws demanding money', 'dowry torture', 'threatened over dowry', 'being harassed for dowry', 'harassed for dowry', 'husband demanding money', 'dowry harassment', 'demanding dowry', 'in laws demanding money'],
     helplines: [LP.helplines.womenAllIssues, LP.helplines.police],
     safetyTips: ['If you feel physically unsafe right now, prioritize getting somewhere safe first.', 'Keep records of demands — messages, witnesses, dates.', 'Women\u2019s helplines can connect you with a protection officer, who exists specifically for cases like this.'],
     rightsNote: 'Demanding dowry is illegal in India regardless of who asks for it or when. ' + RIGHTS_DISCLAIMER
