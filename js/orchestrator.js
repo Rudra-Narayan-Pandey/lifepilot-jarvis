@@ -241,22 +241,22 @@ LP.util = {
 
 LP.vocab = {
   scheduleVerbs: ['book', 'schedule', 'plan a trip', 'plan my', 'add', 'set up', 'arrange', 'flight', 'train', 'hotel', 'class', 'meeting', 'appointment', 'session', 'exam', 'lecture', 'checkup', 'visit'],
-  remindVerbs: ['remind me', "don't let me forget", 'nudge me', 'ping me', 'wake me'],
-  navigateVerbs: ['directions to', 'navigate to', 'how do i get to', 'route to', 'way to'],
+  remindVerbs: ['remind me', "don't let me forget", 'nudge me', 'ping me', 'wake me', 'remind'],
+  navigateVerbs: ['directions to', 'navigate to', 'how do i get to', 'route to', 'way to', 'take me to', 'navigate', 'directions'],
   notifyVerbs: ['tell', 'message', 'notify', 'text', 'whatsapp', 'let', 'inform', 'email'],
   callVerbs: ['call'],
-  budgetVerbs: ['budget', 'spend', 'save up', 'set aside', 'track spending', 'cost', 'expense', 'log this expense'],
+  budgetVerbs: ['budget', 'spent', 'spend', 'save up', 'set aside', 'track spending', 'cost', 'expense', 'log this expense', 'i spent'],
   infoVerbs: ['explain', 'what is', 'what are', 'how does', 'how do', 'why does', 'why is', 'help me understand', 'define', 'difference between', 'derive', 'solve', 'summarize', 'summarise'],
-  searchVerbs: ['search for', 'look up', 'find out about', 'google'],
-  docVerbs: ['write a document', 'create a document', 'draft a document', 'make notes on', 'write up'],
-  habitVerbs: ['track my', 'log my habit', 'i did', 'streak'],
-  goalVerbs: ['my goal is', 'i want to achieve', 'set a goal'],
+  searchVerbs: ['search for', 'look up', 'find out about', 'google', 'find', 'search'],
+  docVerbs: ['write a document', 'create a document', 'draft a document', 'make notes on', 'write up', 'save this'],
+  habitVerbs: ['track my', 'log my habit', 'i did', 'streak', 'log my', 'finished my', 'just finished'],
+  goalVerbs: ['my goal is', 'i want to achieve', 'set a goal', 'i want to', 'my goal'],
   compareVerbs: ['compare', 'vs', 'versus', 'which is better'],
   translateVerbs: ['translate', 'how do you say', 'in tamil', 'in hindi'],
-  timerVerbs: ['start a timer', 'set a timer', 'pomodoro', 'countdown'],
-  noteVerbs: ['note that', 'save this note', 'jot down', 'remember that'],
+  timerVerbs: ['start a timer', 'set a timer', 'pomodoro', 'countdown', 'timer'],
+  noteVerbs: ['note that', 'save this note', 'jot down', 'remember that', 'save this'],
   payVerbs: ['pay', 'send money', 'upi'],
-  cabVerbs: ['book a cab', 'call a cab', 'book an uber', 'get me a ride', 'uber', 'cab', 'taxi', 'need a cab', 'need an uber', 'get me a cab', 'get me an uber', 'take me to', 'drive to', 'book a ride', 'i need an uber', 'need an uber to', 'i need a cab', 'need a cab to', 'get me an uber to', 'order an uber', 'order a cab', 'call me a cab', 'hail a cab', 'request a ride', 'get a ride to', 'need a ride to', 'i need a ride', 'get me to', 'drop me to', 'drop me at', 'take me', 'book ola', 'book rapido', 'ola', 'rapido', 'auto rickshaw', 'auto'],
+  cabVerbs: ['book a cab', 'call a cab', 'book an uber', 'get me a ride', 'uber', 'cab', 'taxi', 'need a cab', 'need an uber', 'get me a cab', 'get me an uber', 'drive to', 'book a ride', 'i need an uber', 'need an uber to', 'i need a cab', 'need a cab to', 'get me an uber to', 'order an uber', 'order a cab', 'call me a cab', 'hail a cab', 'request a ride', 'get a ride to', 'need a ride to', 'i need a ride', 'get me to', 'drop me to', 'drop me at', 'take me to', 'take me', 'book ola', 'book rapido', 'ola', 'rapido', 'auto rickshaw'],
   musicVerbs: ['play music', 'play focus music', 'play lofi', 'play some music', 'play some lofi', 'play lofi beats', 'play a playlist'],
   healthTerms: ['fever', 'headache', 'pain', 'hurts', 'medicine', 'medication', 'dose', 'dosage', 'symptom', 'symptoms', 'nausea', 'vomit', 'cough', 'cold', 'flu', 'rash', 'allergy', 'anxious', 'anxiety', 'depressed', 'depression', 'sick', 'unwell', 'injury', 'injured', 'sprain', 'cut', 'bleeding', 'dizzy', 'chest pain', 'stomach ache', 'sore throat', "not feeling well", "don't feel well", 'accident'],
   emergencyTerms: ['emergency', 'help me now', "can't breathe", 'cannot breathe', 'chest pain', 'heart attack', 'stroke', 'unconscious', 'suicidal', 'suicide', 'kill myself', 'overdose', 'severe bleeding', 'fire', 'choking', 'seizure', 'not breathing', 'call 911', 'call ambulance', 'emergency room'],
@@ -393,10 +393,18 @@ LP.classify = function (rawText) {
     || has(LP.vocab.openEndedMoods);
   const isTimerLed = /^\s*(?:set|start)\s+a\s+timer\b/i.test(text) || /\bpomodoro\b/i.test(text);
 
+  const hasExplicitScheduleVerb = has(LP.vocab.scheduleVerbs) || /\b(schedule|book|meeting|appointment|flight|train|hotel|reservation|event|slot)\b/i.test(t);
+  const isActionLed = has(LP.vocab.remindVerbs) || has(LP.vocab.budgetVerbs) || has(LP.vocab.habitVerbs) || has(LP.vocab.goalVerbs) || has(LP.vocab.noteVerbs) || has(LP.vocab.compareVerbs) || has(LP.vocab.translateVerbs) || has(LP.vocab.timerVerbs) || has(LP.vocab.cabVerbs) || has(LP.vocab.musicVerbs) || isNotifyLed;
+
   const signals = {
-    health: has(LP.vocab.healthTerms),
+    health: has(LP.vocab.healthTerms) && !isActionLed,
     emergency: has(LP.vocab.emergencyTerms),
-    schedule: !isNotifyLed && !isInfoLed && !isOpenEndedMood && !isTimerLed && (has(LP.vocab.scheduleVerbs) || /\b(at|on)\s+\d/.test(t) || !!LP.util.extractTime(t) || !!LP.util.extractDate(t)),
+    schedule: !isNotifyLed && !isInfoLed && !isOpenEndedMood && !isTimerLed && (
+      hasExplicitScheduleVerb ||
+      (/\b(at|on)\s+\d/.test(t) && !isActionLed) ||
+      (!!LP.util.extractTime(t) && !isActionLed) ||
+      (!!LP.util.extractDate(t) && hasExplicitScheduleVerb)
+    ),
     remind: has(LP.vocab.remindVerbs),
     navigate: has(LP.vocab.navigateVerbs),
     notify: notifySignal,
