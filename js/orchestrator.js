@@ -51,10 +51,20 @@ LP.util = {
     // Don't treat a bare number immediately followed by a duration unit as a clock
     // time — "20 minutes" is a duration, not 8:00pm.
     const durationGuard = /\b(\d{1,2})\s*(?:min(?:ute)?s?|hrs?|hours?)\b/i;
+    // Require :mm, am/pm, or explicit time prepositions (at, around, by) for bare numbers
+    const timePrepGuard = /\b(?:at|around|by)\s+(\d{1,2})\b/i;
     const re = /\b([01]?\d|2[0-3])(?::([0-5]\d))?\s?(am|pm)?\b/i;
     const m = text.match(re);
     if (!m) return null;
-    if (durationGuard.test(text) && durationGuard.exec(text)[1] === m[1] && !m[3] && !m[2]) return null;
+
+    const hasColon = !!m[2];
+    const hasAmPm = !!m[3];
+    const hasTimePrep = timePrepGuard.test(text);
+
+    // Bare numbers without :mm, am/pm, or 'at/around/by' are NOT clock times (e.g. iPhone 15, S24)
+    if (!hasColon && !hasAmPm && !hasTimePrep) return null;
+
+    if (durationGuard.test(text) && durationGuard.exec(text)[1] === m[1] && !hasAmPm && !hasColon) return null;
     let h = parseInt(m[1], 10);
     const min = m[2] ? parseInt(m[2], 10) : 0;
     const ap = m[3] ? m[3].toLowerCase() : null;
