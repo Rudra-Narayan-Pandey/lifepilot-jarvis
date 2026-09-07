@@ -5,7 +5,7 @@
    falling back to cache only if the network genuinely fails.
    ============================================================ */
 
-const CACHE_NAME = 'lifepilot-v2-cache-1';
+const CACHE_NAME = 'lifepilot-v3-force-refresh-v7';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -40,19 +40,19 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-  const isStaticAsset = url.origin === self.location.origin;
+  const isHtml = event.request.mode === 'navigate' || url.pathname.endsWith('index.html') || url.pathname === '/';
 
-  if (isStaticAsset) {
-    // Cache-First for our own app shell
+  if (isHtml) {
+    // Network-First for HTML navigation so updates load immediately
     event.respondWith(
-      caches.match(event.request).then((cached) => cached || fetch(event.request).then((res) => {
+      fetch(event.request).then((res) => {
         const clone = res.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         return res;
-      }).catch(() => cached))
+      }).catch(() => caches.match(event.request))
     );
   } else {
-    // Network-First for everything else (weather API, CDN scripts, deep links)
+    // Network-First with cache fallback for all assets
     event.respondWith(
       fetch(event.request).then((res) => {
         const clone = res.clone();
